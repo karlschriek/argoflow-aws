@@ -37,4 +37,4 @@ resources:
 # - argocd-applications/aws-external-dns.yaml
 - argocd-applications/mlflow.yaml
 - argocd-applications/external-secrets.yaml
-# - configs/aws-secrets.yaml
+- configs/aws-secrets.yaml
