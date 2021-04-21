@@ -1,19 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pod-defaults
+  name: mlflow
   namespace: argocd
 spec:
+  destination:
+    namespace: mlflow
+    server: https://kubernetes.default.svc
   project: default
   source:
     repoURL: https://github.com/karlschriek/argoflow-aws
     targetRevision: master
-    path: kubeflow/notebooks/pod-defaults
-    kustomize:
-      version: v4.0.5
-  destination:
-    server: https://kubernetes.default.svc
+    path: mlflow
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+    - CreateNamespace=false

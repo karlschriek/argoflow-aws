@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/argoflow/argoflow-aws
-    targetRevision: HEAD
+    repoURL: https://github.com/karlschriek/argoflow-aws
+    targetRevision: master
     path: kubeflow/operators/mxnet
     kustomize:
       version: v4.0.5
