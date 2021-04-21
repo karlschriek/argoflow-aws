@@ -38,4 +38,4 @@ resources:
 - argocd-applications/mlflow.yaml
 - argocd-applications/external-secrets.yaml
 - configs/aws-secrets.yaml
-# - configs/aws-config.yaml
+- configs/aws-config.yaml
