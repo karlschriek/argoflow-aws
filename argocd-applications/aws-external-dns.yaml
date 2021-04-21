@@ -23,7 +23,7 @@ spec:
               name: aws-config
               key: DOMAIN
       - name: rbac.create
-        value: true
+        value: "true"
       - name: resources.limits.cpu
         value: 100m
       - name: resources.limits.memory
