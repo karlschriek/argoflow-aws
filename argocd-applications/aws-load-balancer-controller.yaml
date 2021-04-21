@@ -12,13 +12,25 @@ spec:
     helm:
      parameters:
       - name: "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-        value: "arn:aws:iam::863518836478:role/my-eks-cluster_aws-alb-ingress-controller"
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: ROLE_ARN_LOADBALANCER_INGRESS_CONTROLLER      
       - name: clusterName
-        value: my-eks-cluster
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: CLUSTER_NAME
       - name: vpcId
-        value: vpc-038b1e8ba71bdbecf
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: VPC_ID
       - name: region
-        value: eu-central-1
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: AWS_REGION
       - name: resources.limits.cpu
         value: 100m
       - name: resources.limits.memory

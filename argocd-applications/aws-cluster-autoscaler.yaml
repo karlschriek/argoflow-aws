@@ -15,7 +15,7 @@ spec:
         valueFrom:
             configMapKeyRef:
               name: aws-config
-              key: role-arn-cluster-autoscaler          
+              key: ROLE_ARN_CLUSTER_AUTOSCALER
       - name: cloudProvider
         value: aws
       - name: image.repository
@@ -23,11 +23,17 @@ spec:
       - name: image.tag
         value: v1.20.0
       - name: autoDiscovery.clusterName
-        value: my-eks-cluster
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: CLUSTER_NAME
       - name: autoDiscovery.enabled
         value: "true"
       - name: awsRegion
-        value: eu-central-1
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: AWS_REGION
       - name: extraArgs.balance-similar-node-groups
         value: "true"
       - name: extraArgs.scale-down-enabled
