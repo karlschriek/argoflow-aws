@@ -34,7 +34,7 @@ resources:
 # - argocd-applications/aws-node-termination-handler.yaml
 - argocd-applications/aws-cluster-autoscaler.yaml
 - argocd-applications/aws-load-balancer-controller.yaml
-- argocd-applications/aws-external-dns.yaml
+- argocd-applications/external-dns.yaml
 - argocd-applications/mlflow.yaml
 - argocd-applications/external-secrets.yaml
 - configs/namespaces/kube-system
