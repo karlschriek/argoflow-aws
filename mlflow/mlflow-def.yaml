@@ -31,10 +31,7 @@ spec:
               name: mlflow-secret
               key: rds_password
         - name: DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: mlflow-secret
-              key: db_name_mlflow
+          value: mlflow
 
       restartPolicy: Never
   backoffLimit: 5
@@ -66,8 +63,8 @@ spec:
           args:
             - --host=0.0.0.0
             - --port=5000
-            - --backend-store-uri="mysql://$(rds_username):$(rds_password)@$(rds_host):3306/$(db_name_mlflow)"
-            - --default-artifact-root=s3://863518836478-dev-kf13-kubeflow/modeling/experiments
+            - --backend-store-uri="mysql://$(rds_username):$(rds_password)@$(rds_host):3306/mlflow"
+            - --default-artifact-root=s3://$(s3_bucket)/modeling/experiments
           envFrom:         
           - secretRef:
               name: mlflow-secret
