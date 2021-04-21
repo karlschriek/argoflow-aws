@@ -15,23 +15,26 @@ spec:
           env:
             - name: HOST
               valueFrom:
-                secretKeyRef:
-                  name: mlflow-secret
+                configMapKeyRef:
+                  name: aws-config
                   key: RDS_HOST
             - name: PORT
               value: "3306"
             - name: USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: mlflow-secret
+                  name: aws-secret
                   key: RDS_USERNAME
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mlflow-secret
+                  name: aws-secret
                   key: RDS_PASSWORD
             - name: DATABASE
-              value: mlflow
+              valueFrom:
+                configMapKeyRef:
+                  name: aws-config
+                  key: RDS_DB_NAME_MLFLOW
 
       restartPolicy: Never
   backoffLimit: 5
@@ -63,11 +66,13 @@ spec:
           args:
             - --host=0.0.0.0
             - --port=5000
-            - --backend-store-uri="mysql://$(RDS_USERNAME):$(RDS_PASSWORD)@$(RDS_HOST):3306/mlflow"
-            - --default-artifact-root=s3://$(s3_bucket)/modeling/experiments
+            - --backend-store-uri="mysql://$(RDS_USERNAME):$(RDS_PASSWORD)@$(RDS_HOST):3306/$(RDS_DB_NAME_MLFLOW)"
+            - --default-artifact-root=s3://$(ARTIFACT_S3_BUCKET)/modeling/experiments
           envFrom:
             - secretRef:
-                name: mlflow-secret
+                name: aws-secret
+            - configMapRef:
+                name: aws-config
           ports:
             - name: http
               containerPort: 5000
