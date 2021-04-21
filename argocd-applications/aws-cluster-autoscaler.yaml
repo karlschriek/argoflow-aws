@@ -12,7 +12,10 @@ spec:
     helm:
      parameters:
       - name: "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-        value: "arn:aws:iam::863518836478:role/my-eks-cluster_cluster-autoscaler"
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: role-arn-cluster-autoscaler          
       - name: cloudProvider
         value: aws
       - name: image.repository
