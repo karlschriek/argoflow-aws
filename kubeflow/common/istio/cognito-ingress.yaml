@@ -1,3 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-ingress
+  namespace: istio-system
+  labels:
+    app: kubeflow
+    name: istio-ingress
+spec:
+  project: default
+  source:
+    repoURL: https://ameijer.github.io/k8s-as-helm/
+    targetRevision: 1.0.2
+    chart: ingress
+    helm:
+     parameters:
+      - name: "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: ROLE_ARN_LOADBALANCER_INGRESS_CONTROLLER      
+      - name: clusterName
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: CLUSTER_NAME
+      - name: vpcId
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: VPC_ID
+      - name: region
+        valueFrom:
+            configMapKeyRef:
+              name: aws-config
+              key: AWS_REGION
+      - name: resources.limits.cpu
+        value: 100m
+      - name: resources.limits.memory
+        value: 300Mi
+      - name: resources.requests.cpu
+        value: 100m
+      - name: resources.requests.memory
+        value: 300Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+
+---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:

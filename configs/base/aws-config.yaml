@@ -4,7 +4,7 @@ metadata:
   name: aws-config
 data:
   ROLE_ARN_CLUSTER_AUTOSCALER: "arn:aws:iam::863518836478:role/dev-kf13_cluster-autoscaler"
-  ROLE_ARN_LOADBALANCER_INGRESS_CONTROLLER: "arn:aws:iam::863518836478:role/my-eks-cluster_aws-alb-ingress-controller"
+  ROLE_ARN_LOADBALANCER_INGRESS_CONTROLLER: "arn:aws:iam::863518836478:role/dev-kf13_aws-alb-ingress-controller"
   ROLE_ARN_EXTERNAL_DNS: "arn:aws:iam::863518836478:role/dev-kf13_external-dns"
   ROLE_ARN_EXTERNAL_SECRETS: "arn:aws:iam::863518836478:role/dev-kf13_external-secrets"
   CLUSTER_NAME: "dev-kf13"
